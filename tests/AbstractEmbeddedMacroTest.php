@@ -19,10 +19,6 @@ abstract class AbstractEmbeddedMacroTest extends TestCase
 {
     private Engine $latteEngine;
 
-    abstract public function provideConfig(): string;
-
-    abstract public function provideFixtureDirectory(): string;
-
     protected function setUp(): void
     {
         $containerFactory = new ContainerFactory();
@@ -36,6 +32,10 @@ abstract class AbstractEmbeddedMacroTest extends TestCase
         $this->latteEngine = $latteFactory->create();
         $this->latteEngine->setLoader(new StringLoader());
     }
+
+    abstract public function provideConfig(): string;
+
+    abstract public function provideFixtureDirectory(): string;
 
     /**
      * @dataProvider provideData()
