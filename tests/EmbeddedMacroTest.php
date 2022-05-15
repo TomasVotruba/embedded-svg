@@ -50,7 +50,7 @@ final class EmbeddedMacroTest extends TestCase
             $fixtureFileInfo
         );
 
-        $this->assertStringMatchesFormat($expectedCompiledPhpContent, $compiledPhpCode);
+        $this->assertEquals($expectedCompiledPhpContent, $compiledPhpCode);
     }
 
     public function provideData(): Iterator
