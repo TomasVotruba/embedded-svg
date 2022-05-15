@@ -1,7 +1,3 @@
-parameters:
-    embeddedSvg:
-        baseDir: %appDir%/../tests/Source
-
 latte:
     extensions:
-        - Milo\EmbeddedSvg\Latte\EmbeddedLatteExtension(%embeddedSvg%)
+        - Milo\EmbeddedSvg\Latte\EmbeddedLatteExtension(%appDir%/../tests/Source)

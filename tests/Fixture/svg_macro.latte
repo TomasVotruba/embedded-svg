@@ -4,7 +4,7 @@
 
 use Latte\Runtime as LR;
 
-final class Template%s extends Latte\Runtime\Template
+final class Template62c89475af extends Latte\Runtime\Template
 {
 
     public function main(array $ʟ_args): void
@@ -16,6 +16,7 @@ final class Template%s extends Latte\Runtime\Template
     {
         extract($this->params);
 
+<<<<<<< HEAD
         echo "<svg";
 <<<<<<< HEAD
         foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + [] as $key => $value) {
@@ -33,15 +34,21 @@ final class Template%s extends Latte\Runtime\Template
             if ($value === null || $value === false) {
 >>>>>>> make the string array work
 >>>>>>> prepare for Latte 3, remove unused exception interface
+=======
+        echo '<svg';
+
+        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $key => $value) {
+            if ($value === null || $value === false) {
+>>>>>>> update fixtures
                 continue;
             } elseif ($value === true) {
-                echo " " . LR\Filters::escapeHtmlText($key);
+                echo ' ' . LR\Filters::escapeHtmlText($key);
             } else {
-                echo " " . LR\Filters::escapeHtmlText($key) . "=\"" . LR\Filters::escapeHtmlText($value) . "\"";
+                echo ' ' . LR\Filters::escapeHtmlText($key) . "='" . LR\Filters::escapeHtmlText($value) . "'";
             }
-        };
-        echo ">" . '<circle cx="4.5" cy="4.5" r="3.5"/>' . "</svg>";
-        echo "\n";
+        }
+
+        echo '<circle cx="4.5" cy="4.5" r="3.5"/></svg>';
         return get_defined_vars();
     }
 }

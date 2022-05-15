@@ -24,10 +24,7 @@ final class XmlErrorException extends \ErrorException
     public static function catch(): ?self
     {
         $xmlError = null;
-<<<<<<< HEAD
-=======
 
->>>>>>> prepare for Latte 3, remove unused exception interface
         foreach (array_reverse(libxml_get_errors()) as $error) {
             $xmlError = new self($error, $xmlError);
         }

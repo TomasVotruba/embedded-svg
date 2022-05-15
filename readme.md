@@ -40,7 +40,8 @@ Register extension in your `config.neon` and configure it:
 ```neon
 latte:
     extensions:
-        - Milo\EmbeddedSvg\Latte\EmbeddedLatteExtension(baseDir: %wwwDir%/img)
+<<<<<<< HEAD
+        - Milo\EmbeddedSvg\Latte\EmbeddedLatteExtension(%embeddedSvg%)
 ```
 
 <<<<<<< HEAD
@@ -48,27 +49,29 @@ latte:
 
 ## Configuration
 
-There are some optional options:
+There are some optional paramers:
 
 ```neon
-    # change name of the macro
-    macroName: svgIcon
+parameters:
+    embeddedSvg:
+        # change name of the macro
+        macroName: svgIcon
 
-    # pretty format SVG content (indent tags)
-    prettyOutput: yes
+        # pretty format SVG content (indent tags)
+        prettyOutput: yes
 
-    # default <svg> tag attributes, for example
-    defaultAttributes:
-        class: embedded
-        height: 30px
-        width: null
+        # default <svg> tag attributes, for example
+        defaultAttributes:
+            class: embedded
+            height: 30px
+            width: null
 
-    # callbacks called when SVG loaded from file
-    onLoad:
-        - [SVGSanitizer, sanitize]
+        # callbacks called when SVG loaded from file
+        onLoad:
+            - [SVGSanitizer, sanitize]
 
-    # bitmask of LIBXML_* flags for DOMDocument::load() method
-    libXmlOptions: (integer)
+        # bitmask of LIBXML_* flags for DOMDocument::load() method
+        libXmlOptions: (integer)
 ```
 
 You can load the extension more then once. In this case,
@@ -87,26 +90,19 @@ Callback added into `onLoad` event is called when SVG contents is successfully
 loaded into DOM. Its signature is:
 
 ```php
-function (DOMDocument $dom, \Milo\EmbeddedSvg\MacroSetting $setting) {
+function (DOMDocument $dom, \Milo\EmbeddedSvg\Configuration\MacroSetting $setting) {
     ...
 }
+=======
+        - Milo\EmbeddedSvg\Latte\EmbeddedLatteExtension(baseDir: %wwwDir%/img)
+>>>>>>> remove options parameters, settings, maybes, keep it simple
 ```
 
 >>>>>>> prepare for Latte 3, remove unused exception interface
 ## Caveats & Limitations
 
 Because `embeddedSvg` is a macro, it is compiled into PHP only once and then is cached.
-<<<<<<< HEAD
-<<<<<<< HEAD
 So, when you change the macro configuration, probably in NEON, you have to purge Latte cache.
-=======
-<<<<<<< HEAD
-So, when you change the macro configuration, probably in NEON, you have to purge
-Latte cache.
->>>>>>> prepare for Latte 3, remove unused exception interface
-=======
-So, when you change the macro configuration, probably in NEON, you have to purge Latte cache.
->>>>>>> make the string array work
 
 ## Resource for Latte 3
 
