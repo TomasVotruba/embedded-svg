@@ -4,16 +4,35 @@
 
 use Latte\Runtime as LR;
 
-final class Template4b640a8efd extends Latte\Runtime\Template
+final class Template%s extends Latte\Runtime\Template
 {
 
-    public function main(): array
+    public function main(array $ʟ_args): void
+    {
+    }
+
+
+    public function prepare(): array
     {
         extract($this->params);
-        
+
         echo "<svg";
+<<<<<<< HEAD
         foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + [] as $key => $value) {
+=======
+<<<<<<< HEAD
+        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $key => $value) {
+>>>>>>> prepare for Latte 3, remove unused exception interface
             if ($value === null || $value === false) {
+=======
+<<<<<<< HEAD
+        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $n => $v) {
+            if ($v === null || $v === false) {
+=======
+        foreach ([] + ['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $key => $value) {
+            if ($value === null || $value === false) {
+>>>>>>> make the string array work
+>>>>>>> prepare for Latte 3, remove unused exception interface
                 continue;
             } elseif ($value === true) {
                 echo " " . LR\Filters::escapeHtmlText($key);
@@ -25,5 +44,4 @@ final class Template4b640a8efd extends Latte\Runtime\Template
         echo "\n";
         return get_defined_vars();
     }
-
 }
