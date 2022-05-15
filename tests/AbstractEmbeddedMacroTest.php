@@ -24,8 +24,6 @@ abstract class AbstractEmbeddedMacroTest extends TestCase
         $containerFactory = new ContainerFactory();
         $container = $containerFactory->createFromConfig($this->provideConfig());
 
-        // __DIR__ . '/config/test_config.neon'
-
         /** @var LatteFactory $latteFactory */
         $latteFactory = $container->getByType(LatteFactory::class);
 
@@ -56,14 +54,14 @@ abstract class AbstractEmbeddedMacroTest extends TestCase
             $fixtureFileInfo
         );
 
-        $this->assertEquals($expectedCompiledPhpContent, $compiledPhpCode);
+        $this->assertStringMatchesFormat($expectedCompiledPhpContent, $compiledPhpCode);
     }
 
     public function provideData(): Iterator
     {
         // @see https://github.com/symplify/easy-testing
         // @see https://tomasvotruba.com/blog/2020/07/20/how-to-update-hundreds-of-test-fixtures-with-single-phpunit-run/
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.latte');
+        return StaticFixtureFinder::yieldDirectory($this->provideFixtureDirectory(), '*.latte');
     }
 
     private function compileLatteToPhpContent(string $latteContent): string
