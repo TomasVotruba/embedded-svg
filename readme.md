@@ -99,8 +99,7 @@ function (DOMDocument $dom, Milo\EmbeddedSvg\MacroSetting $setting) {
 ## Caveats & Limitations
 
 Because `embeddedSvg` is a macro, it is compiled into PHP only once and then is cached.
-So, when you change the macro configuration, probably in NEON, you have to purge
-Latte cache.
+So, when you change the macro configuration, probably in NEON, you have to purge Latte cache.
 
 ## Resource for Latte 3
 
