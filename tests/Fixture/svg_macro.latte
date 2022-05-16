@@ -12,13 +12,13 @@ final class Template4b640a8efd extends Latte\Runtime\Template
         extract($this->params);
         
         echo "<svg";
-        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $n => $v) {
-            if ($v === null || $v === false) {
+        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $key => $value) {
+            if ($value === null || $value === false) {
                 continue;
-            } elseif ($v === true) {
-                echo " " . LR\Filters::escapeHtmlText($n);
+            } elseif ($value === true) {
+                echo " " . LR\Filters::escapeHtmlText($key);
             } else {
-                echo " " . LR\Filters::escapeHtmlText($n) . "=\"" . LR\Filters::escapeHtmlText($v) . "\"";
+                echo " " . LR\Filters::escapeHtmlText($key) . "=\"" . LR\Filters::escapeHtmlText($value) . "\"";
             }
         };
         echo ">" . '<circle cx="4.5" cy="4.5" r="3.5"/>' . "</svg>";

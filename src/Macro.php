@@ -68,13 +68,13 @@ class Macro extends MacroSet
         return $writer->write(
             '
 			echo "<svg";
-			foreach (%0.var as $n => $v) {
-				if ($v === null || $v === false) {
+			foreach (%0.var as $key => $value) {
+				if ($value === null || $value === false) {
 					continue;
-				} elseif ($v === true) {
-					echo " " . %escape($n);
+				} elseif ($value === true) {
+					echo " " . %escape($key);
 				} else {
-					echo " " . %escape($n) . "=\"" . %escape($v) . "\"";
+					echo " " . %escape($key) . "=\"" . %escape($value) . "\"";
 				}
 			};
 			echo ">" . %1.var . "</svg>";
