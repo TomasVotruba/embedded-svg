@@ -2,13 +2,6 @@
     "name": "milo/embedded-svg",
     "description": "Latte macro to embed SVG from file into HTML",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Miloslav Hůla",
-            "email": "miloslav.hula@gmail.com",
-            "homepage": "https://github.com/milo"
-        }
-    ],
     "require": {
         "php": "^8.0",
         "ext-dom": "*",
@@ -22,7 +15,6 @@
         "phpunit/phpunit": "^9.5",
         "nette/bootstrap": "^3.1",
         "tracy/tracy": "^2.9",
-        "nette/application": "^3.1",
         "symplify/easy-testing": "^10.2"
     },
     "autoload": {
