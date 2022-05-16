@@ -1,8 +1,0 @@
-extensions:
-    embeddedSvg: Milo\EmbeddedSvg\Extension
-
-embeddedSvg:
-    baseDir: %appDir%/../tests/Source
-    prettyOutput: no
-    defaultAttributes:
-        class: embedded

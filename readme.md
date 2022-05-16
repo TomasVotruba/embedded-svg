@@ -45,53 +45,6 @@ embeddedSvg:
     baseDir: %wwwDir%/img
 ```
 
-
-## Configuration
-
-There are some other optional options:
-```neon
-embeddedSvg:
-    # change name of the macro
-    macroName: svgIcon
-
-    # pretty format SVG content (indent tags)
-    prettyOutput: yes
-
-    # default <svg> tag attributes, for example
-    defaultAttributes:
-        class: embedded
-        height: 30px
-        width: null
-
-    # callbacks called when SVG loaded from file
-    onLoad:
-        - [SVGSanitizer, sanitize]
-
-    # bitmask of LIBXML_* flags for DOMDocument::load() method
-    libXmlOptions: (integer)
-```
-
-You can load the extension more then once. In this case,
-change macro name by `macroName` option.
-
-Option `defaultAttributes` is a XML attributes list for generated `<svg>` tag.
-These are merged. The precedence is (higher to lower):
-- macro tag attributes
-- default attributes
-- attributes of `<svg>` tag loaded from file
-
-If the attribute value is `null`, it is not rendered. You can unset
-attributes from SVG file in that way.
-
-Callback added into `onLoad` event is called when SVG contents is successfully
-loaded into DOM. Its signature is:
-```php
-function (DOMDocument $dom, Milo\EmbeddedSvg\MacroSetting $setting) {
-    ...
-}
-```
-
-
 ## Caveats & Limitations
 
 Because `embeddedSvg` is a macro, it is compiled into PHP only once and then is cached.
