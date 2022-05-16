@@ -4,65 +4,44 @@ declare(strict_types=1);
 
 namespace Milo\EmbeddedSvg;
 
-class MacroSetting
+use Milo\EmbeddedSvg\Exception\ConfigurationException;
+
+final class MacroSetting
 {
-    /**
-     * @var string
-     */
-    public $baseDir;
+    public string $baseDir;
+
+    public int $libXmlOptions;
+
+    public bool $prettyOutput;
+
+    public string $macroName = 'svg';
 
     /**
-     * @var string
+     * @var array<string, mixed>
      */
-    public $macroName = 'embeddedSvg';
-
-    /**
-     * @var int
-     */
-    public $libXmlOptions = LIBXML_NOBLANKS;
-
-    /**
-     * @var bool
-     */
-    public $prettyOutput = false;
-
-    /**
-     * @var mixed[]
-     */
-    public $defaultAttributes = [];
+    public array $defaultAttributes;
 
     /**
      * @var callable[]
      */
-    public $onLoad = [];
+    public array $onLoad;
 
     /**
-     * @param string $name
-     * @param mixed $value
+     * @param array<string, mixed> $settings
      */
-    public function __set($name, $value): void
+    public function __construct(array $settings)
     {
-        throw new \LogicException('Cannot write to an undeclared property ' . static::class . "::\$${name}.");
-    }
-
-    /**
-     * @param mixed[] $setting
-     */
-    public static function createFromArray(array $setting): self
-    {
-        $me = new self();
-        foreach ($setting as $property => $value) {
-            $me->{$property} = $value;
+        if (! isset($settings['baseDir'])) {
+            throw new ConfigurationException('"baseDir" parameter is missing in embeddable svg configuration');
         }
-        return $me;
-    }
 
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function &__get($name)
-    {
-        throw new \LogicException('Cannot read an undeclared property ' . static::class . "::\$${name}.");
+        $this->baseDir = $settings['baseDir'];
+
+        $this->macroName = $settings['macroName'] ?? 'svg';
+        $this->libXmlOptions = $settings['libXmlOptions'] ?? LIBXML_NOBLANKS;
+        $this->prettyOutput = $settings['prettyOutput'] ?? false;
+
+        $this->onLoad = $settings['onLoad'] ?? [];
+        $this->defaultAttributes = $settings['defaultAttributes'] ?? [];
     }
 }
