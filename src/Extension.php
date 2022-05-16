@@ -25,9 +25,8 @@ class Extension extends CompilerExtension
         $definition
             ->addSetup(
                 '?->onCompile[] = function ($engine) { '
-                . Macro::class . '::install($engine->getCompiler(), '
-                . 'new ' . MacroSetting::class . '(?)'
-                . ');}',
+                . Macro::class . '::install($engine->getCompiler(), ?);'
+                . '};',
                 ['@self', $this->getConfig()]
             );
     }

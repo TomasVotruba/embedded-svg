@@ -13,24 +13,28 @@ use Milo\EmbeddedSvg\XML\SvgDOMDocumentFactory;
 
 class Macro extends MacroSet
 {
-    private MacroSetting $setting;
-
-    public function __construct(Compiler $compiler, MacroSetting $setting)
-    {
+    public function __construct(
+        Compiler $compiler,
+        private string $baseDir
+    ) {
         if (! extension_loaded('dom')) {
             throw new \LogicException('Missing PHP extension xml.');
-        } elseif (! is_dir($setting->baseDir)) {
-            throw new CompileException("Base directory '{$setting->baseDir}' does not exist.");
+        } elseif (! is_dir($baseDir)) {
+            throw new CompileException("Base directory '{$baseDir}' does not exist.");
         }
 
         parent::__construct($compiler);
-        $this->setting = $setting;
     }
 
-    public static function install(Compiler $compiler, MacroSetting $setting): void
+    /**
+     * @param array{baseDir: string} $configuration
+     */
+    public static function install(Compiler $compiler, array $configuration): void
     {
-        $me = new self($compiler, $setting);
-        $me->addMacro($setting->macroName, [$me, 'open']);
+        $baseDir = $configuration['baseDir'];
+
+        $me = new self($compiler, $baseDir);
+        $me->addMacro('embeddedSvg', [$me, 'open']);
     }
 
     public function open(MacroNode $node, PhpWriter $writer): string
@@ -40,13 +44,13 @@ class Macro extends MacroSet
             throw new CompileException('Missing SVG file path.');
         }
 
-        $path = $this->setting->baseDir . DIRECTORY_SEPARATOR . trim($file, '\'"');
+        $path = $this->baseDir . DIRECTORY_SEPARATOR . trim($file, '\'"');
         if (! is_file($path)) {
             throw new CompileException("SVG file '${path}' does not exist.");
         }
 
         $svgDOMDocumentFactory = new SvgDOMDocumentFactory();
-        $svgDOMDocument = $svgDOMDocumentFactory->create($path, $this->setting);
+        $svgDOMDocument = $svgDOMDocumentFactory->create($path);
 
         $svgAttributes = [
             'xmlns' => $svgDOMDocument->documentElement->namespaceURI,
@@ -56,7 +60,7 @@ class Macro extends MacroSet
         }
 
         $inner = '';
-        $svgDOMDocument->formatOutput = $this->setting->prettyOutput;
+        $svgDOMDocument->formatOutput = false;
         foreach ($svgDOMDocument->documentElement->childNodes as $childNode) {
             $inner .= $svgDOMDocument->saveXML($childNode);
         }
@@ -75,7 +79,7 @@ class Macro extends MacroSet
 			};
 			echo ">" . %1.var . "</svg>";
 			',
-            array_merge($this->setting->defaultAttributes, $svgAttributes),
+            $svgAttributes,
             $inner
         );
     }
