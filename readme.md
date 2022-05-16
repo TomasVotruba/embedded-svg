@@ -5,19 +5,16 @@
 ```latte
 <h1>
     Publications
-    {embeddedSvg 'icons/help.svg',
-        class => 'help-icon',
-        data-toggle => 'popover',
-        data-content => 'This is a list of your publications for last 5 years.'
-    }
+    {embeddedSvg 'icons/help.svg'}
 </h1>
 ```
 
-Result HTML code may look like:
+Result HTML code will look like:
+
 ```html
 <h1>
     Publications
-    <svg xmlns="..." class="help-icon" ...>
+    <svg xmlns="..." >
         ... content of help.svg file ...
     </svg>
 </h1>
@@ -28,8 +25,7 @@ Result HTML code may look like:
 This is a single purpose helper library with a macro definition for [Latte](https://latte.nette.org/), the PHP templating engine.
 It loads SVG source file and embed it into HTML code in compile time.
 
-Motivation for this is possibility to stylize SVG by CSS then. It is not (easily)
-possible with SVG linked as an image like `<img src="icons/help.svg">`.
+This allows to stylize SVG by CSS. It isn't easy with SVG linked as an image `<img src="icons/help.svg">`.
 
 ## Installation
 
