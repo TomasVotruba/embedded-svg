@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Milo\EmbeddedSvg;
 
-use DOMDocument;
 use Latte\CompileException;
 use Latte\Compiler;
 use Latte\MacroNode;
 use Latte\Macros\MacroSet;
 use Latte\PhpWriter;
-use Milo\EmbeddedSvg\Exception\XmlErrorException;
+use Milo\EmbeddedSvg\XML\SvgDOMDocumentFactory;
 
 class Macro extends MacroSet
 {
@@ -46,36 +45,21 @@ class Macro extends MacroSet
             throw new CompileException("SVG file '${path}' does not exist.");
         }
 
-        XmlErrorException::try();
-        $dom = new DOMDocument('1.0', 'UTF-8');
-        $dom->preserveWhiteSpace = false;
-        @$dom->load($path, $this->setting->libXmlOptions);  # @ - triggers warning on empty XML
-
-        $xmlErrorException = XmlErrorException::catch();
-
-        if ($xmlErrorException instanceof XmlErrorException) {
-            throw new CompileException("Failed to load SVG content from '${path}'.", 0, $xmlErrorException);
-        }
-        foreach ($this->setting->onLoad as $cb) {
-            $cb($dom, $this->setting);
-        }
-
-        if (strtolower($dom->documentElement->nodeName) !== 'svg') {
-            throw new CompileException("Sorry, only <svg> (non-prefixed) root element is supported but {$dom->documentElement->nodeName} is used. You may open feature request.");
-        }
+        $svgDOMDocumentFactory = new SvgDOMDocumentFactory();
+        $svgDOMDocument = $svgDOMDocumentFactory->create($path, $this->setting);
 
         $macroAttributes = $writer->formatArray();
         $svgAttributes = [
-            'xmlns' => $dom->documentElement->namespaceURI,
+            'xmlns' => $svgDOMDocument->documentElement->namespaceURI,
         ];
-        foreach ($dom->documentElement->attributes as $attribute) {
+        foreach ($svgDOMDocument->documentElement->attributes as $attribute) {
             $svgAttributes[$attribute->name] = $attribute->value;
         }
 
         $inner = '';
-        $dom->formatOutput = $this->setting->prettyOutput;
-        foreach ($dom->documentElement->childNodes as $childNode) {
-            $inner .= $dom->saveXML($childNode);
+        $svgDOMDocument->formatOutput = $this->setting->prettyOutput;
+        foreach ($svgDOMDocument->documentElement->childNodes as $childNode) {
+            $inner .= $svgDOMDocument->saveXML($childNode);
         }
 
         return $writer->write(
