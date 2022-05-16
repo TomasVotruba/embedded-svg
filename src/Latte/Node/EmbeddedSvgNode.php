@@ -69,7 +69,7 @@ foreach (%dump as $key => $value) {
     }
 }
 
-%raw
+%node
 echo '</svg>';
 MACRO_CONTENT,
             $attributes,

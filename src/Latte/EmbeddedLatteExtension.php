@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Milo\EmbeddedSvg\Latte;
 
 use Latte\CompileException;
-use Latte\Compiler\Node;
 use Latte\Compiler\Tag;
 use Latte\Extension;
 use LogicException;
