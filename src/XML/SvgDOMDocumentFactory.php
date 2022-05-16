@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Milo\EmbeddedSvg\XML;
 
 use DOMDocument;
-use Milo\EmbeddedSvg\Exception\CompileException;
+use Milo\EmbeddedSvg\Exception\ShouldNotHappenException;
 use Milo\EmbeddedSvg\Exception\XmlErrorException;
 
 final class SvgDOMDocumentFactory
@@ -23,15 +23,15 @@ final class SvgDOMDocumentFactory
 
         if ($xmlErrorException instanceof XmlErrorException) {
             $errorMessage = sprintf('Failed to load SVG content from "%s"', $svgFilePath);
-            throw new CompileException($errorMessage, 0, $xmlErrorException);
+            throw new ShouldNotHappenException($errorMessage, 0, $xmlErrorException);
         }
 
         /** @var \DOMElement $documentElement */
         $documentElement = $domDocument->documentElement;
 
         if (strtolower($documentElement->nodeName) !== 'svg') {
-            $errorMessage = sprintf('Only <svg> (non-prefixed) root element is supported but "%s" is used.', $domDocument->documentElement->nodeName);
-            throw new CompileException($errorMessage);
+            $errorMessage = sprintf('Only <svg> (non-prefixed) root element is supported but "%s" is used.', $documentElement->nodeName);
+            throw new ShouldNotHappenException($errorMessage);
         }
 
         return $domDocument;

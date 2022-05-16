@@ -17,6 +17,7 @@ final class Template62c89475af extends Latte\Runtime\Template
         extract($this->params);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         echo "<svg";
 <<<<<<< HEAD
         foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + [] as $key => $value) {
@@ -35,11 +36,12 @@ final class Template62c89475af extends Latte\Runtime\Template
 >>>>>>> make the string array work
 >>>>>>> prepare for Latte 3, remove unused exception interface
 =======
+=======
+>>>>>>> inherit from area node
         echo '<svg';
 
         foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $key => $value) {
             if ($value === null || $value === false) {
->>>>>>> update fixtures
                 continue;
             } elseif ($value === true) {
                 echo ' ' . LR\Filters::escapeHtmlText($key);

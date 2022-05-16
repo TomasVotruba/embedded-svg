@@ -16,20 +16,11 @@ final class AttributesFactory
         $attributes = [
             'xmlns' => $domElement->namespaceURI,
         ];
-        $xmlAttributeNodes = $this->createFromDomAttributes($domElement);
 
-        return array_merge($attributes, $xmlAttributeNodes);
-    }
-
-    /**
-     * @return mixed[]
-     */
-    private function createFromDomAttributes(DOMElement $domElement): array
-    {
-        $attributes = [];
-
-        foreach ($domElement->attributes as $attribute) {
-            $attributes[$attribute->name] = $attribute->value;
+        if ($domElement->attributes instanceof \DOMNamedNodeMap) {
+            foreach ($domElement->attributes as $attribute) {
+                $attributes[$attribute->name] = $attribute->value;
+            }
         }
 
         return $attributes;

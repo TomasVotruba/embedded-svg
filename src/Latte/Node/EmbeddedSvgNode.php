@@ -6,12 +6,12 @@ namespace Milo\EmbeddedSvg\Latte\Node;
 
 use DOMDocument;
 use DOMElement;
-use Latte\Compiler\Nodes\Html\ElementNode;
+use Latte\Compiler\Nodes\AreaNode;
 use Latte\Compiler\Nodes\Php\Scalar\StringNode;
 use Latte\Compiler\Nodes\TextNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
-use Milo\EmbeddedSvg\Exception\CompileException;
+use Milo\EmbeddedSvg\Exception\ShouldNotHappenException;
 use Milo\EmbeddedSvg\Latte\NodeFactory\AttributesFactory;
 use Milo\EmbeddedSvg\XML\SvgDOMDocumentFactory;
 
@@ -22,13 +22,8 @@ use Milo\EmbeddedSvg\XML\SvgDOMDocumentFactory;
  * ↓
  * <svg width="x" height="y"><circle cx="4.5" cy="4.5" r="3.5"/></svg>
  */
-final class EmbeddedSvgNode extends ElementNode
+final class EmbeddedSvgNode extends AreaNode
 {
-    /**
-     * @var string
-     */
-    public const ELEMENT_NAME = 'svg';
-
     private string $svgFilepath;
 
     private AttributesFactory $attributesFactory;
@@ -42,8 +37,6 @@ final class EmbeddedSvgNode extends ElementNode
         // services
         $this->attributesFactory = new AttributesFactory();
         $this->svgDOMDocumentFactory = new SvgDOMDocumentFactory();
-
-        parent::__construct(self::ELEMENT_NAME);
 
         // node requires at least 1 argument, the filename
         $this->svgFilepath = $this->resolveCompleteFilePath($tag, $baseDir);
@@ -89,14 +82,14 @@ MACRO_CONTENT,
         $filename = $tag->parser->parseUnquotedStringOrExpression();
 
         if (! $filename instanceof StringNode) {
-            throw new CompileException('Missing SVG file path.');
+            throw new ShouldNotHappenException('Missing SVG file path.');
         }
 
         $absoluteFilename = $baseDir . DIRECTORY_SEPARATOR . $filename->value;
 
         if (! is_file($absoluteFilename)) {
             $errorMessage = sprintf('SVG file "%s" does not exist.', $absoluteFilename);
-            throw new CompileException($errorMessage);
+            throw new ShouldNotHappenException($errorMessage);
         }
 
         return $absoluteFilename;
