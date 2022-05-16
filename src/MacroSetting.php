@@ -14,7 +14,7 @@ final class MacroSetting
 
     public bool $prettyOutput;
 
-    public string $macroName = 'svg';
+    public string $macroName = 'embeddedSvg';
 
     /**
      * @var array<string, mixed>
@@ -37,7 +37,7 @@ final class MacroSetting
 
         $this->baseDir = $settings['baseDir'];
 
-        $this->macroName = $settings['macroName'] ?? 'svg';
+        $this->macroName = $settings['macroName'] ?? 'embeddedSvg';
         $this->libXmlOptions = $settings['libXmlOptions'] ?? LIBXML_NOBLANKS;
         $this->prettyOutput = $settings['prettyOutput'] ?? false;
 

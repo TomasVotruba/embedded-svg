@@ -10,6 +10,7 @@ use Latte\Compiler;
 use Latte\MacroNode;
 use Latte\Macros\MacroSet;
 use Latte\PhpWriter;
+use Milo\EmbeddedSvg\Exception\XmlErrorException;
 
 class Macro extends MacroSet
 {

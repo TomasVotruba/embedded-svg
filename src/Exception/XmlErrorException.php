@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Milo\EmbeddedSvg;
+namespace Milo\EmbeddedSvg\Exception;
 
-class XmlErrorException extends \ErrorException implements Exception
+final class XmlErrorException extends \ErrorException
 {
     /**
      * @var bool[]
