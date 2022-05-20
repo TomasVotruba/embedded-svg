@@ -30,6 +30,8 @@ final class EmbeddedSvgNode extends AreaNode
 
     private SvgDOMDocumentFactory $svgDOMDocumentFactory;
 
+    private \Latte\Compiler\Nodes\Php\Expression\ArrayNode $arguments;
+
     public function __construct(
         Tag $tag,
         string $baseDir
@@ -40,6 +42,10 @@ final class EmbeddedSvgNode extends AreaNode
 
         // node requires at least 1 argument, the filename
         $this->svgFilepath = $this->resolveCompleteFilePath($tag, $baseDir);
+
+        // parse optional arguments
+        $tag->parser->stream->tryConsume(',');
+        $this->arguments = $tag->parser->parseArguments();
     }
 
     public function print(PrintContext $context): string
@@ -59,7 +65,7 @@ final class EmbeddedSvgNode extends AreaNode
             <<<'MACRO_CONTENT'
 echo '<svg';
 
-foreach (%dump as $key => $value) {
+foreach (%dump + %node as $key => $value) {
     if ($value === null || $value === false) {
         continue;
     } elseif ($value === true) {
@@ -73,6 +79,7 @@ foreach (%dump as $key => $value) {
 echo '</svg>';
 MACRO_CONTENT,
             $attributes,
+            $this->arguments,
             new TextNode($innerSvgContent)
         );
     }

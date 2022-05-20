@@ -40,7 +40,7 @@ final class Template8dea510c93 extends Latte\Runtime\Template
 >>>>>>> inherit from area node
         echo '<svg';
 
-        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] as $key => $value) {
+        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + [] as $key => $value) {
             if ($value === null || $value === false) {
                 continue;
             } elseif ($value === true) {
