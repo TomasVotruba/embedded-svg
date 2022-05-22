@@ -1,10 +1,10 @@
-{embeddedSvg "dot.svg"}
+{embeddedSvg "dot.svg", "class" => "first_class"}
 -----
 <?php
 
 use Latte\Runtime as LR;
 
-final class Template4b640a8efd extends Latte\Runtime\Template
+final class Template6cfb038521 extends Latte\Runtime\Template
 {
 
     public function main(): array
@@ -12,7 +12,7 @@ final class Template4b640a8efd extends Latte\Runtime\Template
         extract($this->params);
         
         echo "<svg";
-        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + [] as $key => $value) {
+        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + ["class" => "first_class"] as $key => $value) {
             if ($value === null || $value === false) {
                 continue;
             } elseif ($value === true) {

@@ -52,6 +52,8 @@ class Macro extends MacroSet
         $svgDOMDocumentFactory = new SvgDOMDocumentFactory();
         $svgDOMDocument = $svgDOMDocumentFactory->create($path);
 
+        $macroAttributes = $writer->formatArray();
+
         $svgAttributes = [
             'xmlns' => $svgDOMDocument->documentElement->namespaceURI,
         ];
@@ -68,7 +70,7 @@ class Macro extends MacroSet
         return $writer->write(
             '
 			echo "<svg";
-			foreach (%0.var as $key => $value) {
+			foreach (%0.var + %1.raw as $key => $value) {
 				if ($value === null || $value === false) {
 					continue;
 				} elseif ($value === true) {
@@ -77,9 +79,10 @@ class Macro extends MacroSet
 					echo " " . %escape($key) . "=\"" . %escape($value) . "\"";
 				}
 			};
-			echo ">" . %1.var . "</svg>";
+			echo ">" . %2.var . "</svg>";
 			',
             $svgAttributes,
+            $macroAttributes,
             $inner
         );
     }
