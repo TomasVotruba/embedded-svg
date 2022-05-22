@@ -24,9 +24,11 @@ final class XmlErrorException extends \ErrorException
     public static function catch(): ?self
     {
         $xmlError = null;
+
         foreach (array_reverse(libxml_get_errors()) as $error) {
             $xmlError = new self($error, $xmlError);
         }
+
         libxml_clear_errors();
         libxml_use_internal_errors(array_pop(self::$handling));
         return $xmlError;

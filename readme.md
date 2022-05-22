@@ -38,11 +38,9 @@ composer require milo/embedded-svg
 Register extension in your `config.neon` and configure it:
 
 ```neon
-extensions:
-    embeddedSvg: Milo\EmbeddedSvg\Extension
-
-embeddedSvg:
-    baseDir: %wwwDir%/img
+latte:
+    extensions:
+        - Milo\EmbeddedSvg\Latte\EmbeddedLatteExtension(baseDir: %wwwDir%/img)
 ```
 
 ## Caveats & Limitations

@@ -4,26 +4,31 @@
 
 use Latte\Runtime as LR;
 
-final class Template6cfb038521 extends Latte\Runtime\Template
+final class Templatea7e4a46640 extends Latte\Runtime\Template
 {
 
-    public function main(): array
+    public function main(array $ʟ_args): void
+    {
+    }
+
+
+    public function prepare(): array
     {
         extract($this->params);
-        
-        echo "<svg";
-        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + ["class" => "first_class"] as $key => $value) {
+
+        echo '<svg';
+
+        foreach (['xmlns' => 'http://www.w3.org/2000/svg', 'width' => '9', 'height' => '9'] + ['class' => 'first_class'] as $key => $value) {
             if ($value === null || $value === false) {
                 continue;
             } elseif ($value === true) {
-                echo " " . LR\Filters::escapeHtmlText($key);
+                echo ' ' . LR\Filters::escapeHtmlText($key);
             } else {
-                echo " " . LR\Filters::escapeHtmlText($key) . "=\"" . LR\Filters::escapeHtmlText($value) . "\"";
+                echo ' ' . LR\Filters::escapeHtmlText($key) . "='" . LR\Filters::escapeHtmlText($value) . "'";
             }
-        };
-        echo ">" . '<circle cx="4.5" cy="4.5" r="3.5"/>' . "</svg>";
-        echo "\n";
+        }
+
+        echo '<circle cx="4.5" cy="4.5" r="3.5"/></svg>';
         return get_defined_vars();
     }
-
 }
