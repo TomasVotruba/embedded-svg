@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Milo\EmbeddedSvg\Tests;
 
-final class MacroTest extends AbstractMacroTest
+final class EmbeddedSvgMacroTest extends AbstractMacroTest
 {
     public function provideConfig(): string
     {
