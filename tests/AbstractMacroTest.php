@@ -15,7 +15,7 @@ use Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-abstract class AbstractEmbeddedMacroTest extends TestCase
+abstract class AbstractMacroTest extends TestCase
 {
     private Engine $latteEngine;
 
